@@ -1,0 +1,18 @@
+---
+- name: Cloning the "{{ repo_name }}" repo
+  git:
+    repo: "{{ source_url }}"
+    dest: '{{ git_dir }}/{{ repo_name }}'
+    clone: yes
+    update: yes
+
+- name: Add alternate remote
+  ini_file:
+    dest: '{{ git_dir }}/{{ repo_name }}/.git/config'
+    section: 'remote "mirrored"'
+    option: url
+    value: "{{ dest_url }}"
+  tags: configuration
+ 
+- name: Push the repo to alternate remote
+  shell: 'git --git-dir={{ git_dir }}/{{ repo_name }}/.git push mirrored HEAD'

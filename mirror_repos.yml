@@ -1,0 +1,27 @@
+---
+# Run with:
+# ansible-playbook mirror_repos.yml -D
+
+- name: Mirror Git repos with Ansible
+  hosts: localhost
+  vars:
+    git_dir: "{{playbook_dir}}"
+
+  tasks:
+  - include_tasks: tasks.yml
+    vars:
+      repo_name: my_repo_name_1
+      source_url: 'https://bitbucket_user@git.some-company.com/scm/ci/{{ repo_name }}.git'
+      dest_url: 'https://github-user@git.some-company.com/scm/~github-user/{{ repo_name }}.git'
+
+#  - include_tasks: tasks.yml
+#    vars:
+#      repo_name: my_repo_name_2
+#      source_url: 'https://bitbucket_user@git.some-company.com/scm/ci/{{ repo_name }}.git'
+#      dest_url: 'https://github-user@git.some-company.com/scm/~github-user/{{ repo_name }}.git'
+
+#  - include_tasks: tasks.yml
+#    vars:
+#      repo_name: my_repo_name_3
+#      source_url: 'https://bitbucket_user@git.some-company.com/scm/ci/{{ repo_name }}.git'
+#      dest_url: 'https://github-user@git.some-company.com/scm/~github-user/{{ repo_name }}.git'
